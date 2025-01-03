@@ -28,7 +28,7 @@ const HomePage: React.FC = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-base-300 text-base-content">
+    <div className="min-h-screen text-base-content">
       <Header />
 
       <main className="container mx-auto px-4 py-8">
@@ -56,13 +56,13 @@ const HomePage: React.FC = () => {
                 { title: "CHEEEEEP CHEEEP Service!", author: "Mayhem Bitcherson", text: "Garrett's real real good!" },
                 { title: "Da Best Service!", author: "Havocles Beanus", text: "Garrett's expertise is unmatched. My bike rides like new!" },
                 { title: "Friendly and Professional", author: "John Smith", text: "Garrett took care of my skis perfectly. Highly recommend!" },
-                { title: "Quick Turnaround!", author: "Emily Davis", text: "I needed my bike fixed urgently, and Garrett delivered." },
+                { title: "Quick Turnaround!", author: "Old Yowsie", text: "I needed my bike fixed urgently, and Garrett delivered." },
               ].map((review, index) => (
                 <div
                   key={index}
                   className="flex-shrink-0 w-full sm:w-[80%] md:w-[60%] lg:w-[40%] max-w-[300px]"
                 >
-                  <div className="p-6 bg-gray-100 rounded-lg shadow-lg text-center h-full flex flex-col justify-between">
+                  <div className="p-6 rounded-lg shadow-lg text-center h-full flex flex-col justify-between">
                     <h3 className="text-xl font-bold">{`"${review.title}"`}</h3>
                     <p className="mt-2 text-gray-600">{`- ${review.author}`}</p>
                     <p className="mt-2">{review.text}</p>
