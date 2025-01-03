@@ -1,10 +1,15 @@
 import React from "react";
+import useEmblaCarousel from "embla-carousel-react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { Button } from "../components/ui/button";
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "../components/ui/carousel";
 
 const HomePage: React.FC = () => {
+  const [emblaRef, emblaApi] = useEmblaCarousel({
+    align: "start", // Align items to the start
+    skipSnaps: false, // Ensure snaps happen as expected
+  });
+
   return (
     <div className="min-h-screen bg-base-200 text-base-content">
       <Header />
@@ -25,41 +30,43 @@ const HomePage: React.FC = () => {
           <h2 className="text-3xl font-bold mb-6 text-center">
             Customer Reviews
           </h2>
-          <Carousel>
-            <CarouselPrevious />
-            <CarouselContent>
-              <CarouselItem>
-                <div className="p-6 bg-gray-100 rounded shadow-md text-center">
-                  <h3 className="text-xl font-bold">"Exceptional Service!"</h3>
-                  <p className="mt-2 text-gray-600">- Jane Doe</p>
-                  <p className="mt-2">
-                    "Garrett's expertise is unmatched. My bike rides like new!"
-                  </p>
+          <div ref={emblaRef} className="overflow-hidden">
+            <div className="flex">
+              {[
+                { title: "Exceptional Service!", author: "Jane Doe", text: "Garrett's expertise is unmatched. My bike rides like new!" },
+                { title: "CHEEEEEP CHEEEP Service!", author: "Mayhem Bitcherson", text: "Garrett's real real good!" },
+                { title: "Da Best Service!", author: "Havocles Beanus", text: "Garrett's expertise is unmatched. My bike rides like new!" },
+                { title: "Friendly and Professional", author: "John Smith", text: "Garrett took care of my skis perfectly. Highly recommend!" },
+                { title: "Quick Turnaround!", author: "Emily Davis", text: "I needed my bike fixed urgently, and Garrett delivered." },
+              ].map((review, index) => (
+                <div
+                  key={index}
+                  className="pl-2 md:basis-1/2 lg:basis-1/3 flex-shrink-0 flex-grow-0"
+                >
+                  <div className="p-6 bg-gray-100 rounded shadow-md text-center aspect-[4/3] flex flex-col justify-between">
+                    <h3 className="text-xl font-bold">{`"${review.title}"`}</h3>
+                    <p className="mt-2 text-gray-600">{`- ${review.author}`}</p>
+                    <p className="mt-2">{review.text}</p>
+                  </div>
                 </div>
-              </CarouselItem>
-              <CarouselItem>
-                <div className="p-6 bg-gray-100 rounded shadow-md text-center">
-                  <h3 className="text-xl font-bold">
-                    "Friendly and Professional"
-                  </h3>
-                  <p className="mt-2 text-gray-600">- John Smith</p>
-                  <p className="mt-2">
-                    "Garrett took care of my skis perfectly. Highly recommend!"
-                  </p>
-                </div>
-              </CarouselItem>
-              <CarouselItem>
-                <div className="p-6 bg-gray-100 rounded shadow-md text-center">
-                  <h3 className="text-xl font-bold">"Quick Turnaround!"</h3>
-                  <p className="mt-2 text-gray-600">- Emily Davis</p>
-                  <p className="mt-2">
-                    "I needed my bike fixed urgently, and Garrett delivered."
-                  </p>
-                </div>
-              </CarouselItem>
-            </CarouselContent>
-            <CarouselNext />
-          </Carousel>
+              ))}
+            </div>
+          </div>
+
+          <div className="flex justify-center mt-4 gap-4">
+            <button
+              onClick={() => emblaApi?.scrollPrev()}
+              className="px-4 py-2 bg-primary text-white rounded"
+            >
+              Previous
+            </button>
+            <button
+              onClick={() => emblaApi?.scrollNext()}
+              className="px-4 py-2 bg-primary text-white rounded"
+            >
+              Next
+            </button>
+          </div>
         </section>
 
         <section id="services" className="mb-12">
