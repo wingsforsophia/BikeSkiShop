@@ -1,18 +1,34 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import About from "../components/About";
 import { Button } from "../components/ui/button";
 
 const HomePage: React.FC = () => {
   const [emblaRef, emblaApi] = useEmblaCarousel({
-    align: "center", // Align items to the start
+    align: "center", // Align items to the center
     skipSnaps: false, // Ensure snaps happen as expected
     startIndex: 1, // Start with the second slide
   });
 
+  const [shouldReduceMotion, setShouldReduceMotion] = useState(false);
+
+  useEffect(() => {
+    // Check the prefers-reduced-motion setting
+    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const updateMotionPreference = () => setShouldReduceMotion(mediaQuery.matches);
+
+    updateMotionPreference(); // Set initial value
+    mediaQuery.addEventListener("change", updateMotionPreference);
+
+    return () => {
+      mediaQuery.removeEventListener("change", updateMotionPreference);
+    };
+  }, []);
+
   return (
-    <div className="min-h-screen bg-base-200 text-base-content">
+    <div className="min-h-screen bg-base-300 text-base-content">
       <Header />
 
       <main className="container mx-auto px-4 py-8">
@@ -21,19 +37,18 @@ const HomePage: React.FC = () => {
             Welcome to TriState Bike and Ski
           </h1>
           <p className="text-lg">
-            Your one-stop shop for top-quality bike and ski services, products,
-            and news.
+            {/* Add a brief description here */}
           </p>
           <Button className="mt-6 btn-primary">Explore Our Services</Button>
         </section>
-
+        <About />
         <section className="mb-12">
           <h2 className="text-3xl font-bold mb-6 text-center">
             Customer Testimonials
           </h2>
           <div
             ref={emblaRef}
-            className="overflow-hidden py-6" // Add padding to the carousel container
+            className={`overflow-hidden py-6 transition-all ${shouldReduceMotion ? "duration-0" : "duration-300"}`}
           >
             <div className="flex space-x-4">
               {[
