@@ -6,8 +6,9 @@ import { Button } from "../components/ui/button";
 
 const HomePage: React.FC = () => {
   const [emblaRef, emblaApi] = useEmblaCarousel({
-    align: "start", // Align items to the start
+    align: "center", // Align items to the start
     skipSnaps: false, // Ensure snaps happen as expected
+    startIndex: 1, // Start with the second slide
   });
 
   return (
@@ -17,7 +18,7 @@ const HomePage: React.FC = () => {
       <main className="container mx-auto px-4 py-8">
         <section className="text-center mb-12">
           <h1 className="text-5xl font-bold mb-4 text-primary">
-            Welcome to TriState Cycle and Ski
+            Welcome to TriState Bike and Ski
           </h1>
           <p className="text-lg">
             Your one-stop shop for top-quality bike and ski services, products,
@@ -28,10 +29,13 @@ const HomePage: React.FC = () => {
 
         <section className="mb-12">
           <h2 className="text-3xl font-bold mb-6 text-center">
-            Customer Reviews
+            Customer Testimonials
           </h2>
-          <div ref={emblaRef} className="overflow-hidden">
-            <div className="flex">
+          <div
+            ref={emblaRef}
+            className="overflow-hidden py-6" // Add padding to the carousel container
+          >
+            <div className="flex space-x-4">
               {[
                 { title: "Exceptional Service!", author: "Jane Doe", text: "Garrett's expertise is unmatched. My bike rides like new!" },
                 { title: "CHEEEEEP CHEEEP Service!", author: "Mayhem Bitcherson", text: "Garrett's real real good!" },
@@ -41,9 +45,9 @@ const HomePage: React.FC = () => {
               ].map((review, index) => (
                 <div
                   key={index}
-                  className="pl-2 md:basis-1/2 lg:basis-1/3 flex-shrink-0 flex-grow-0"
+                  className="flex-shrink-0 w-full sm:w-[80%] md:w-[60%] lg:w-[40%] max-w-[300px]"
                 >
-                  <div className="p-6 bg-gray-100 rounded shadow-md text-center aspect-[4/3] flex flex-col justify-between">
+                  <div className="p-6 bg-gray-100 rounded-lg shadow-lg text-center h-full flex flex-col justify-between">
                     <h3 className="text-xl font-bold">{`"${review.title}"`}</h3>
                     <p className="mt-2 text-gray-600">{`- ${review.author}`}</p>
                     <p className="mt-2">{review.text}</p>

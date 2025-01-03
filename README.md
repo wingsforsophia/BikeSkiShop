@@ -1,2 +1,2 @@
-#TriState Cycle and Ski
+#TriState Bike and Ski
 
